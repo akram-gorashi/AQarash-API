@@ -44,7 +44,7 @@ namespace Al_Delala.Api
             // app.UseHttpsRedirection();
 
             app.UseRouting();
-
+          
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
