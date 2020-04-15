@@ -25,3 +25,8 @@ appsettings.json
 
 # Other
 .txt
+
+# DB
+/DelalaApp.Db
+/DelalaApp-shm
+/DelalaApp-wal
