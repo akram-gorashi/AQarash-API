@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Al_Delal.Api.Models
 {
     public class User
@@ -6,5 +9,8 @@ namespace Al_Delal.Api.Models
         public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public DateTime LastActive { get; set; }
+        public string City { get; set; }
+        public ICollection<Vehicle> Vehicles { get; set; }
     }
 }
