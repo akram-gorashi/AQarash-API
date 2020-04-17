@@ -21,12 +21,12 @@ packages
 appsettings.json
 
 # EF Migrations
-/Migrations
+Migrations
 
 # Other
 .txt
 
 # DB
-/DelalaApp.Db
-/DelalaApp-shm
-/DelalaApp-wal
+DelalaApp.Db
+DelalaApp-shm
+DelalaApp-wal
