@@ -3,17 +3,21 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Al_Delal.Api.Contract;
 using Al_Delal.Api.Models;
 using Al_Delal.Api.Repositories.Auth;
 using Al_Delal.Api.Resource.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Al_Delal.Api.Controller
 {
- [Route("api/[controller]")]
+    /*   [Route("api/[controller]")]
+      [ApiController] */
     [ApiController]
+    [Authorize]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
@@ -24,7 +28,8 @@ namespace Al_Delal.Api.Controller
             _repo = repo;
         }
 
-        [HttpPost("register")]
+        [AllowAnonymous]
+        [HttpPost(ApiRoutes.Account.Register)]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
@@ -42,7 +47,8 @@ namespace Al_Delal.Api.Controller
             return StatusCode(201);
         }
 
-        [HttpPost("login")]
+        [AllowAnonymous]
+        [HttpPost(ApiRoutes.Account.Login)]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             var userFromRepo = await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
@@ -64,7 +70,7 @@ namespace Al_Delal.Api.Controller
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddDays(2),
                 SigningCredentials = creds
             };
 
@@ -72,7 +78,8 @@ namespace Al_Delal.Api.Controller
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
         }

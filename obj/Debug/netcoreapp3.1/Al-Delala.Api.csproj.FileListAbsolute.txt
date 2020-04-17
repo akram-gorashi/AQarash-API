@@ -57,3 +57,11 @@ C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\runtimes\wi
 C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Akram\Desktop\Aldelala\Al-Delal.Api\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
