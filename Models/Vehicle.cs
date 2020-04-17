@@ -17,5 +17,7 @@ namespace Al_Delal.Api.Models
         public string Fuel { get; set; }
         public string Transmission { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public User User { get; set; }
+        public int UserId { get; set; }
     }
 }
