@@ -11,6 +11,7 @@ namespace Al_Delal.Api.Models
         public byte[] PasswordSalt { get; set; }
         public DateTime LastActive { get; set; }
         public string City { get; set; }
+        public int Phone { get; set; }
         public ICollection<Vehicle> Vehicles { get; set; }
     }
 }
