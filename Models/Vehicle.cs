@@ -16,10 +16,10 @@ namespace Al_Delal.Api.Models
         public int Year { get; set; }
         public string Fuel { get; set; }
         public string Transmission { get; set; }
-        public int Price { get; set; }
+        public string Price { get; set; }
         public string Description { get; set; }
         public ICollection<Photo> Photos { get; set; }
-        public User User { get; set; }
+       // public User User { get; set; }
         public int UserId { get; set; }
     }
 }

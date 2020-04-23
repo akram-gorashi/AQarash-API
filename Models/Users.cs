@@ -11,7 +11,9 @@ namespace Al_Delal.Api.Models
         public byte[] PasswordSalt { get; set; }
         public DateTime LastActive { get; set; }
         public string City { get; set; }
-        public int Phone { get; set; }
-        public ICollection<Vehicle> Vehicles { get; set; }
+        public string Phone { get; set; }
+     /* there is no relation between user and vehicle just send userid with vehcile post request to register the 
+     vehcile with the  user id */
+       // public Vehicle Vehicle { get; set; }
     }
 }
