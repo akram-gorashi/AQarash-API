@@ -6,9 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Al_Delal.Api.Repositories.Users
 {
-    public class UserRepository : IUserRepository
-    {        private readonly DataContext _context;
-        public UserRepository(DataContext context)
+    public class UsersRepository : IUsersRepository
+    {
+        private readonly DataContext _context;
+        public UsersRepository(DataContext context)
         {
             _context = context;
         }

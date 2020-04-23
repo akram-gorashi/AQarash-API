@@ -14,8 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Al_Delal.Api.Controller
 {
-    /*   [Route("api/[controller]")]
-      [ApiController] */
+   
     [ApiController]
     [Authorize]
     public class AuthController : ControllerBase
