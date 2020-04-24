@@ -64,7 +64,7 @@ namespace Al_Delala.Api
             }
 
             // app.UseHttpsRedirection();
-           // seeder.SeedUsers();
+            seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseRouting();
 

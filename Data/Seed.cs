@@ -14,18 +14,11 @@ namespace Al_Delal.Api.Data
 
         public void SeedUsers() 
         {
-            var userData = System.IO.File.ReadAllText("Data/seed.json");
-            var users = JsonConvert.DeserializeObject<List<User>>(userData);
+            var userData = System.IO.File.ReadAllText("Data/seedVehicle.json");
+            var users = JsonConvert.DeserializeObject<List<Vehicle>>(userData);
             foreach (var user in users)
             {
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash("password", out passwordHash, out passwordSalt);
-
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
-                user.Username = user.Username.ToLower();
-
-                _context.Users.Add(user);
+                _context.Vehicles.Add(user);
             }
 
             _context.SaveChanges();
