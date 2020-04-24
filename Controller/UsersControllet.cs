@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route(ApiRoutes.Users.User)]
-//[Authorize]
+
 public class UsersController : ControllerBase
 {
     private readonly IUsersRepository _repo;
@@ -19,7 +19,8 @@ public class UsersController : ControllerBase
         _mapper = mapper;
         _repo = repo;
     }
-
+    
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {

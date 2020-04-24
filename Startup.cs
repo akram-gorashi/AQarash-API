@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Al_Delal.Api.Repositories.Users;
+using AutoMapper;
 
 namespace Al_Delala.Api
 {
@@ -36,9 +37,10 @@ namespace Al_Delala.Api
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddCors();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddMvc();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
               .AddJwtBearer(options =>
               {
