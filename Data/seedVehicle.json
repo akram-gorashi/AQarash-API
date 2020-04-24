@@ -1,0 +1,149 @@
+[
+    {
+        "DateAdded": "2019-01-17T12:27:47 -02:00",
+        "Make": "EWEVILLE",
+        "TypeOfCar": "click",
+        "Mileage": 23333,
+        "Color": "blue",
+        "Condition": "Incididunt non in minim aute anim quis reprehenderit labore ea non elit et. Ut id eiusmod ea amet exercitation consequat irure esse. Nisi aute in velit cillum ipsum mollit eu amet anim consequat et sunt tempor id. Elit reprehenderit in qui nulla ullamco ex ut anim id exercitation id cillum culpa. Nulla mollit dolor nostrud cillum. In cupidatat irure tempor tempor pariatur sit veniam. Adipisicing ipsum laborum magna in mollit duis est ad elit exercitation.\r\n",
+        "Model": "ZILCH",
+        "Year": 2002,
+        "Fuel": "gas",
+        "Transmission": "manual",
+        "price": "$3,196.80",
+        "Description": "Eiusmod elit elit elit irure fugiat consectetur adipisicing minim fugiat velit proident dolore cupidatat. Fugiat sint cillum aliqua et tempor eiusmod ad aliquip ex. Qui sit aute ut laborum commodo sit culpa irure. Irure reprehenderit reprehenderit ipsum esse nostrud. Reprehenderit do et ullamco fugiat eiusmod occaecat cillum.\r\n",
+        "Photos": [
+            {
+                "url": "http://placehold.it/32x32",
+                "DateAdded": "2020-04-13T06:27:09 -02:00",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "DateAdded": "2017-11-15T02:34:11 -02:00",
+        "Make": "CANDECOR",
+        "TypeOfCar": "click",
+        "Mileage": 23333,
+        "Color": "blue",
+        "Condition": "Velit ex ut culpa officia occaecat labore commodo anim ad consectetur ad. Irure aliqua aliquip id eiusmod deserunt exercitation. Do dolore veniam et elit. Duis aute exercitation enim reprehenderit pariatur consectetur exercitation minim in. Est velit reprehenderit tempor dolor. Irure nisi irure est dolor cillum anim est.\r\n",
+        "Model": "EXOBLUE",
+        "Year": 2002,
+        "Fuel": "gas",
+        "Transmission": "manual",
+        "price": "$2,082.58",
+        "Description": "Fugiat fugiat dolor cupidatat elit nulla cupidatat. Ut est aliquip magna incididunt aliqua nisi adipisicing cupidatat eiusmod consequat amet ipsum. Ut dolor sit tempor quis ex esse eiusmod Lorem ullamco ut ut. Consequat aute nulla incididunt fugiat. Labore in cupidatat proident ullamco irure aute consectetur fugiat non ullamco est. Dolor ullamco duis non aliquip incididunt.\r\n",
+        "Photos": [
+            {
+                "url": "http://placehold.it/32x32",
+                "DateAdded": "2014-11-10T04:15:53 -03:00",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "DateAdded": "2016-12-22T09:02:57 -03:00",
+        "Make": "SPORTAN",
+        "TypeOfCar": "click",
+        "Mileage": 23333,
+        "Color": "green",
+        "Condition": "Fugiat ullamco esse enim minim do proident id Lorem aute. Dolor duis ullamco ut occaecat non do amet ipsum laboris in voluptate dolor est dolore. Aliqua ipsum veniam velit dolore non.\r\n",
+        "Model": "LIMOZEN",
+        "Year": 2002,
+        "Fuel": "gas",
+        "Transmission": "manual",
+        "price": "$2,394.25",
+        "Description": "Exercitation minim Lorem commodo amet minim incididunt. Quis consectetur dolor incididunt adipisicing occaecat voluptate ipsum veniam Lorem sit esse. Laborum esse enim non amet.\r\n",
+        "Photos": [
+            {
+                "url": "http://placehold.it/32x32",
+                "DateAdded": "2019-08-11T06:55:51 -02:00",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "DateAdded": "2020-01-28T05:24:49 -02:00",
+        "Make": "MIXERS",
+        "TypeOfCar": "click",
+        "Mileage": 23333,
+        "Color": "brown",
+        "Condition": "Culpa Lorem sit officia sint excepteur quis cillum. Enim magna aliqua aliquip in qui commodo ad irure occaecat aute dolor exercitation aliqua eiusmod. Aute minim minim laborum Lorem anim dolore incididunt ullamco nisi consectetur. Enim velit velit ut elit officia. Consectetur voluptate elit quis cupidatat anim laboris pariatur. Dolor laboris occaecat commodo magna laboris. Elit dolor consectetur cupidatat ut officia consequat consectetur nostrud officia proident reprehenderit.\r\n",
+        "Model": "CALCULA",
+        "Year": 2002,
+        "Fuel": "gas",
+        "Transmission": "manual",
+        "price": "$1,513.68",
+        "Description": "Nisi quis tempor cillum cillum adipisicing. Sit in cillum sunt ad consectetur non. Ad proident sint eiusmod eu ut velit. Reprehenderit enim pariatur voluptate non reprehenderit officia proident enim pariatur. Irure cupidatat ut est magna.\r\n",
+        "Photos": [
+            {
+                "url": "http://placehold.it/32x32",
+                "DateAdded": "2017-07-26T06:33:09 -03:00",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "DateAdded": "2018-04-20T05:41:07 -02:00",
+        "Make": "UNEEQ",
+        "TypeOfCar": "click",
+        "Mileage": 23333,
+        "Color": "brown",
+        "Condition": "Qui ad dolor dolore elit ut. Aliquip elit occaecat culpa laboris anim. Ea commodo et nisi excepteur amet officia laboris aliqua ea amet quis.\r\n",
+        "Model": "XSPORTS",
+        "Year": 2002,
+        "Fuel": "gas",
+        "Transmission": "manual",
+        "price": "$1,689.50",
+        "Description": "Reprehenderit ut amet pariatur pariatur. Adipisicing exercitation laborum consectetur qui aliqua occaecat ipsum mollit. Anim non amet ex Lorem laboris irure eu dolor velit tempor.\r\n",
+        "Photos": [
+            {
+                "url": "http://placehold.it/32x32",
+                "DateAdded": "2016-11-03T08:08:15 -03:00",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "DateAdded": "2016-02-14T02:51:56 -03:00",
+        "Make": "ENTHAZE",
+        "TypeOfCar": "click",
+        "Mileage": 23333,
+        "Color": "green",
+        "Condition": "Qui amet ipsum enim eiusmod veniam velit irure. Deserunt id non laboris labore dolor elit excepteur amet voluptate anim exercitation aliqua fugiat. Amet velit deserunt ipsum amet esse commodo adipisicing aliqua ullamco nisi sunt amet. Consectetur veniam amet Lorem minim. Esse dolore Lorem anim voluptate.\r\n",
+        "Model": "ZIGGLES",
+        "Year": 2002,
+        "Fuel": "gas",
+        "Transmission": "manual",
+        "price": "$1,724.43",
+        "Description": "Cupidatat proident qui velit exercitation fugiat et. Enim id sint qui sit anim voluptate sunt est qui nostrud reprehenderit eiusmod. Qui quis minim velit deserunt amet adipisicing aliqua anim sunt nisi commodo magna.\r\n",
+        "Photos": [
+            {
+                "url": "http://placehold.it/32x32",
+                "DateAdded": "2019-04-11T08:21:13 -02:00",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "DateAdded": "2015-09-18T11:08:12 -03:00",
+        "Make": "URBANSHEE",
+        "TypeOfCar": "click",
+        "Mileage": 23333,
+        "Color": "blue",
+        "Condition": "Duis enim deserunt et cillum velit laboris est esse dolor incididunt esse fugiat pariatur. Cupidatat esse minim et qui proident sunt mollit mollit labore enim ea. Labore aliqua anim deserunt consectetur eu ut quis duis ut aliquip et voluptate. Nisi et do culpa anim dolore aliquip sit tempor Lorem tempor quis incididunt veniam. Proident aliquip laboris laboris Lorem id commodo consectetur. Mollit cupidatat culpa pariatur incididunt amet sint officia ea.\r\n",
+        "Model": "QIMONK",
+        "Year": 2002,
+        "Fuel": "gas",
+        "Transmission": "manual",
+        "price": "$2,175.48",
+        "Description": "Labore nostrud fugiat ut do veniam esse. Reprehenderit deserunt tempor eiusmod quis nulla nulla tempor sit. Magna nulla cillum dolor laboris commodo. Excepteur laborum Lorem non deserunt. Nulla Lorem est do cupidatat id sunt voluptate nisi voluptate velit consequat.\r\n",
+        "Photos": [
+            {
+                "url": "http://placehold.it/32x32",
+                "DateAdded": "2016-02-26T02:44:05 -03:00",
+                "IsMain": false
+            }
+        ]
+    }
+]
