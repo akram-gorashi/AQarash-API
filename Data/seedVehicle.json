@@ -1,5 +1,6 @@
 [
     {
+        "userId": 1,
         "DateAdded": "2019-01-17T12:27:47 -02:00",
         "Make": "EWEVILLE",
         "TypeOfCar": "click",
@@ -21,6 +22,7 @@
         ]
     },
     {
+        "userId": 2,
         "DateAdded": "2017-11-15T02:34:11 -02:00",
         "Make": "CANDECOR",
         "TypeOfCar": "click",
@@ -42,6 +44,7 @@
         ]
     },
     {
+        "userId": 3,
         "DateAdded": "2016-12-22T09:02:57 -03:00",
         "Make": "SPORTAN",
         "TypeOfCar": "click",
@@ -63,6 +66,7 @@
         ]
     },
     {
+        "userId": 4,
         "DateAdded": "2020-01-28T05:24:49 -02:00",
         "Make": "MIXERS",
         "TypeOfCar": "click",
@@ -84,6 +88,7 @@
         ]
     },
     {
+        "userId": 5,
         "DateAdded": "2018-04-20T05:41:07 -02:00",
         "Make": "UNEEQ",
         "TypeOfCar": "click",
@@ -105,6 +110,7 @@
         ]
     },
     {
+        "userId": 5,
         "DateAdded": "2016-02-14T02:51:56 -03:00",
         "Make": "ENTHAZE",
         "TypeOfCar": "click",
@@ -126,6 +132,7 @@
         ]
     },
     {
+        "userId": 6,
         "DateAdded": "2015-09-18T11:08:12 -03:00",
         "Make": "URBANSHEE",
         "TypeOfCar": "click",

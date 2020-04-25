@@ -19,5 +19,13 @@ namespace Al_Delal.Api.Contract
 
         }
         #endregion
+
+        #region Vehicle
+        public static class Vehicles
+        {
+            public const string Vehicle = "api/vehicle";
+        }
+            
+        #endregion
     }
 }
