@@ -1,17 +1,23 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Al_Delal.Api.Contract;
 using Al_Delal.Api.Repositories.Vehicles;
 using Al_Delal.Api.Resource.Vehicle;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static System.Net.WebRequestMethods;
 
 namespace Al_Delal.Api.Controller
 {
-    [Authorize]
+
     [ApiController]
     [Route(ApiRoutes.Vehicles.Vehicle)]
+    // [Authorize]
     public class VehicleController : ControllerBase
     {
         private readonly IVehicleRepository _repo;
@@ -22,7 +28,7 @@ namespace Al_Delal.Api.Controller
             _repo = repo;
         }
 
-        
+
         [HttpGet]
         public async Task<IActionResult> GetVehicles()
         {
@@ -30,7 +36,7 @@ namespace Al_Delal.Api.Controller
 
             var vehiclesToReturn = _mapper.Map<IEnumerable<VehicleForListDto>>(vehicles);
 
-            return Ok(vehicles);
+            return Ok(vehiclesToReturn);
         }
 
         [HttpGet("{id}")]
@@ -42,6 +48,23 @@ namespace Al_Delal.Api.Controller
 
             return Ok(vehicleToReturn);
         }
-    }
+/* 
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return Content("file not selected");
 
+            var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot",
+                        file.GetFilename());
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return RedirectToAction("Files");
+        } */
+    }
 }

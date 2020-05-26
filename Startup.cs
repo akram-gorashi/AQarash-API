@@ -12,6 +12,9 @@ using System.Text;
 using Al_Delal.Api.Repositories.Users;
 using AutoMapper;
 using Al_Delal.Api.Repositories.Vehicles;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Al_Delala.Api
 {
@@ -69,7 +72,12 @@ namespace Al_Delala.Api
 
             app.UseAuthorization();
             app.UseAuthentication();
-
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
