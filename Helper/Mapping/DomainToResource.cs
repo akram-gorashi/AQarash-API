@@ -5,13 +5,16 @@ using AutoMapper;
 
 namespace Al_Delal.Api.Helper.Mapping
 {
-    public class DomainToResource: Profile
+    public class DomainToResource : Profile
     {
         public DomainToResource()
         {
             CreateMap<User, UserForListDto>();
             CreateMap<Vehicle, VehicleForListDto>();
             CreateMap<Vehicle, VehicleForDetailsDto>();
+            CreateMap<Vehicle, AddVehicleDto>();
+            CreateMap<AddVehicleDto, Vehicle>();
+
         }
     }
 }

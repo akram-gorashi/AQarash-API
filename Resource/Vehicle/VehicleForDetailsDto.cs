@@ -19,7 +19,8 @@ namespace Al_Delal.Api.Resource.Vehicle
         public string Transmission { get; set; }
         public string Price { get; set; }
         public string Description { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        // sending back image url only
+        // public ICollection<Photo> Photos { get; set; }
         // public User User { get; set; }
         public int UserId { get; set; }
     }

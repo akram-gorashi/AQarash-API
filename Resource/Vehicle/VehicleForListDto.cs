@@ -13,7 +13,7 @@ namespace Al_Delal.Api.Resource.Vehicle
 
         public int Year { get; set; }
         public string Price { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        // public ICollection<Photo> Photos { get; set; }
         public int UserId { get; set; }
     }
 }

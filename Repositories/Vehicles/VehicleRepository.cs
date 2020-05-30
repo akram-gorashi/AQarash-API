@@ -13,34 +13,76 @@ namespace Al_Delal.Api.Repositories.Vehicles
         {
             _context = context;
         }
-        public void Add<T>(T entity) where T : class
-        {
-            _context.Add(entity);
 
+        public async Task<int> AddVehicle(Vehicle vehicle)
+        {
+            if (_context != null)
+            {
+                await _context.Vehicles.AddAsync(vehicle);
+                await _context.SaveChangesAsync();
+
+                return vehicle.Id;
+            }
+
+            return 0;
         }
 
-        public void Delete<T>(T entity) where T : class
+        public async Task<int> DeleteVehicle(int? vehicleId)
         {
-            _context.Remove(entity);
+            int result = 0;
+
+            if (_context != null)
+            {
+                //Find the post for specific post id
+                var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Id == vehicleId);
+
+                if (vehicle != null)
+                {
+                    //Delete that vehicle
+                    _context.Vehicles.Remove(vehicle);
+
+                    //Commit the transaction
+                    result = await _context.SaveChangesAsync();
+                }
+                return result;
+            }
+
+            return result;
         }
 
-        public async Task<Vehicle> GetVehicle(int id)
+        public async Task<Vehicle> GetVehicle(int? vehicleId)
         {
-            var vehicle = await _context.Vehicles.Include(v => v.Photos).FirstOrDefaultAsync(v => v.Id == id);
+            if (_context != null)
+            {
+                var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == vehicleId);
 
-            return vehicle;
+                return vehicle;
+            }
+            return null;
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehicles()
+        public async Task<List<Vehicle>> GetVehicles()
         {
-            var vehicles = await _context.Vehicles.Include(v => v.Photos).ToListAsync();
+            if (_context != null)
+            {
+                var vehicles = await _context.Vehicles.ToListAsync();
 
-            return vehicles;
+                return vehicles;
+            }
+
+            return null;
         }
 
-        public async Task<bool> SaveAll()
+        public async Task UpdateVehicle(Vehicle vehicle)
         {
-            return await _context.SaveChangesAsync() > 0;
+            if (_context != null)
+            {
+                //Delete that vehicle
+                _context.Vehicles.Update(vehicle);
+
+                //Commit the transaction
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

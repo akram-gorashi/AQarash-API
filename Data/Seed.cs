@@ -14,11 +14,11 @@ namespace Al_Delal.Api.Data
 
         public void SeedUsers() 
         {
-            var userData = System.IO.File.ReadAllText("Data/seedVehicle.json");
-            var users = JsonConvert.DeserializeObject<List<Vehicle>>(userData);
+            var userData = System.IO.File.ReadAllText("Data/seed.json");
+            var users = JsonConvert.DeserializeObject<List<User>>(userData);
             foreach (var user in users)
             {
-                _context.Vehicles.Add(user);
+                _context.Users.Add(user);
             }
 
             _context.SaveChanges();

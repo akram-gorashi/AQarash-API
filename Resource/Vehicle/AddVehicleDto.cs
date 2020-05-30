@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Al_Delal.Api.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace Al_Delal.Api.Models
+namespace Al_Delal.Api.Resource.Vehicle
 {
-    public class Vehicle
+    public class AddVehicleDto
     {
-        public int Id { get; set; }
+          public string Id { get; set; }
         public DateTime DateAdded { get; set; }
         public string Make { get; set; }
         public string TypeOfCar { get; set; }
@@ -19,8 +20,8 @@ namespace Al_Delal.Api.Models
         public string Transmission { get; set; }
         public string Price { get; set; }
         public string Description { get; set; }
-      
-        public User User { get; set; }
-        public int UserId { get; set; }
+        //  public List<IFormFile> Photos { get; set; }
+       
+        public string UserId { get; set; }
     }
 }

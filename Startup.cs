@@ -12,6 +12,9 @@ using System.Text;
 using Al_Delal.Api.Repositories.Users;
 using AutoMapper;
 using Al_Delal.Api.Repositories.Vehicles;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Al_Delala.Api
 {
@@ -63,7 +66,8 @@ namespace Al_Delala.Api
             }
 
             // app.UseHttpsRedirection();
-            //seeder.SeedUsers();
+            seeder.SeedUsers();
+            app.UseStaticFiles();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseRouting();
 

@@ -16,7 +16,6 @@ namespace Al_Delal.Api.Controller
 {
    
     [ApiController]
-    [Authorize]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
@@ -60,7 +59,7 @@ namespace Al_Delal.Api.Controller
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.Username)
             };
-
+            // Console.WriteLine(claims.ToString());
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(_config.GetSection("AppSettings:Token").Value));
 
