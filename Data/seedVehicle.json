@@ -128,7 +128,28 @@
                 "url": "http://placehold.it/32x32",
                 "DateAdded": "2019-04-11T08:21:13 -02:00",
                 "IsMain": true
+<<<<<<< HEAD
             },
+=======
+            }
+        ]
+    },
+    {
+        "userId": 6,
+        "DateAdded": "2015-09-18T11:08:12 -03:00",
+        "Make": "URBANSHEE",
+        "TypeOfCar": "click",
+        "Mileage": 23333,
+        "Color": "blue",
+        "Condition": "Duis enim deserunt et cillum velit laboris est esse dolor incididunt esse fugiat pariatur. Cupidatat esse minim et qui proident sunt mollit mollit labore enim ea. Labore aliqua anim deserunt consectetur eu ut quis duis ut aliquip et voluptate. Nisi et do culpa anim dolore aliquip sit tempor Lorem tempor quis incididunt veniam. Proident aliquip laboris laboris Lorem id commodo consectetur. Mollit cupidatat culpa pariatur incididunt amet sint officia ea.\r\n",
+        "Model": "QIMONK",
+        "Year": 2002,
+        "Fuel": "gas",
+        "Transmission": "manual",
+        "price": "$2,175.48",
+        "Description": "Labore nostrud fugiat ut do veniam esse. Reprehenderit deserunt tempor eiusmod quis nulla nulla tempor sit. Magna nulla cillum dolor laboris commodo. Excepteur laborum Lorem non deserunt. Nulla Lorem est do cupidatat id sunt voluptate nisi voluptate velit consequat.\r\n",
+        "Photos": [
+>>>>>>> [update]
             {
                 "url": "http://placehold.it/32x32",
                 "DateAdded": "2019-04-11T08:21:13 -02:00",
