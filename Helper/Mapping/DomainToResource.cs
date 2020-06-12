@@ -10,6 +10,8 @@ namespace Al_Delal.Api.Helper.Mapping
         public DomainToResource()
         {
             CreateMap<User, UserForListDto>();
+            CreateMap<User, UserForLoginDto>();
+            CreateMap<User, UserForRegisterDto>();
             CreateMap<Vehicle, VehicleForListDto>();
             CreateMap<Vehicle, VehicleForDetailsDto>();
             CreateMap<Vehicle, AddVehicleDto>();

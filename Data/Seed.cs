@@ -1,36 +1,59 @@
 using System.Collections.Generic;
+using System.Linq;
 using Al_Delal.Api.Models;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
 namespace Al_Delal.Api.Data
 {
-    public class Seed
-    {
-        private readonly DataContext _context;
-        public Seed(DataContext context)
-        {
-            _context = context;
-        }
-
-        public void SeedUsers() 
-        {
-            var userData = System.IO.File.ReadAllText("Data/seed.json");
+   public class Seed
+   {
+      private readonly UserManager<User> _userManager;
+      private readonly RoleManager<Role> _roleManager;
+      public Seed(UserManager<User> userManager, RoleManager<Role> roleManager)
+      {
+         _roleManager = roleManager;
+         _userManager = userManager;
+      }
+      public void SeedUsers()
+      {
+         if (!_userManager.Users.Any())
+         {
+            var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
             var users = JsonConvert.DeserializeObject<List<User>>(userData);
-            foreach (var user in users)
+
+            var roles = new List<Role>
+                {
+                    new Role{Name = "Stuff"},
+                    new Role{Name = "Admin"},
+                    new Role{Name = "User"},
+                };
+
+            foreach (var role in roles)
             {
-                _context.Users.Add(user);
+               _roleManager.CreateAsync(role).Wait();
             }
 
-            _context.SaveChanges();
-        }
-
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            foreach (var user in users)
             {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            } 
-        }
-    }
+               _userManager.CreateAsync(user, "password").Wait();
+               _userManager.AddToRoleAsync(user, "User").Wait();
+            }
+
+            var adminUser = new User
+            {
+               UserName = "Admin"
+            };
+
+            IdentityResult result = _userManager.CreateAsync(adminUser, "password").Result;
+
+            if (result.Succeeded)
+            {
+               var admin = _userManager.FindByNameAsync("Admin").Result;
+               _userManager.AddToRolesAsync(admin, new[] { "Admin", "Stuff" }).Wait();
+            }
+         }
+
+      }
+   }
 }

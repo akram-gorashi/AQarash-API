@@ -13,7 +13,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.3"/>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0"/>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
+<<<<<<< HEAD
     <PackageReference Include="ObjectDumper" Version="1.0.0.12"/>
     <PackageReference Include="LinqKit" Version="1.1.17"/>
+=======
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4"/>
+>>>>>>> [update] finish securing api
   </ItemGroup>
 </Project>

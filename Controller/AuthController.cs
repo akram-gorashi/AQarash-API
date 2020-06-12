@@ -1,85 +1,118 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Al_Delal.Api.Contract;
 using Al_Delal.Api.Models;
-using Al_Delal.Api.Repositories.Auth;
 using Al_Delal.Api.Resource.User;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Al_Delal.Api.Controller
 {
-   
-    [ApiController]
-    public class AuthController : ControllerBase
-    {
-        private readonly IAuthRepository _repo;
-        private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
-        {
-            _config = config;
-            _repo = repo;
-        }
 
-        [AllowAnonymous]
-        [HttpPost(ApiRoutes.Account.Register)]
-        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
-        {
-            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
+   [ApiController]
+   public class AuthController : ControllerBase
+   {
+      private readonly IConfiguration _config;
+      private readonly IMapper _mapper;
+      private readonly UserManager<User> _userManager;
+      private readonly SignInManager<User> _signInManager;
 
-            if (await _repo.UserExists(userForRegisterDto.Username))
-                return BadRequest("Username already exists");
+      public AuthController(IConfiguration config,
+          IMapper mapper,
+          UserManager<User> userManager,
+          SignInManager<User> signInManager)
+      {
+         _userManager = userManager;
+         _signInManager = signInManager;
+         _mapper = mapper;
+         _config = config;
+      }
 
-            var userToCreate = new User
-            {
-                Username = userForRegisterDto.Username
-            };
+      [HttpPost(ApiRoutes.Account.Register)]
+      public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
+      {
+         userForRegisterDto.Created = DateTime.Now;
+         var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
-            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
+         var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);
 
-            return StatusCode(201);
-        }
+         var userToReturn = userToCreate;
 
-        [AllowAnonymous]
-        [HttpPost(ApiRoutes.Account.Login)]
-        public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
-        {
-            var userFromRepo = await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
+         if (result.Succeeded)
+         {
+            return Ok(userToReturn);
+            /* CreatedAtRoute("GetUser",
+                new { controller = "Users", id = userToCreate.Id }, userToReturn); */
+         }
 
-            if (userFromRepo == null)
-                return Unauthorized();
+         return BadRequest(result.Errors);
+      }
 
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
-            };
-            // Console.WriteLine(claims.ToString());
-            var key = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(_config.GetSection("AppSettings:Token").Value));
+      [HttpPost(ApiRoutes.Account.Login)]
+      public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
+      {
+         var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
+         var result = await _signInManager
+             .CheckPasswordSignInAsync(user, userForLoginDto.Password, false);
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+         if (result.Succeeded)
+         {
+            var appUser = await _userManager.Users
+                .FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.Username.ToUpper());
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(2),
-                SigningCredentials = creds
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var userToReturn = _mapper.Map<UserForListDto>(appUser);
 
             return Ok(new
             {
-                token = tokenHandler.WriteToken(token)
+               token = GenerateJwtToken(appUser).Result,
+               user = userToReturn
             });
-        }
-    }
+         }
+
+         return Unauthorized();
+      }
+
+      private async Task<string> GenerateJwtToken(User user)
+      {
+         var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
+            };
+
+         var roles = await _userManager.GetRolesAsync(user);
+
+         foreach (var role in roles)
+         {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+         }
+
+         var key = new SymmetricSecurityKey(Encoding.UTF8
+             .GetBytes(_config.GetSection("AppSettings:Token").Value));
+
+         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+         var tokenDescriptor = new SecurityTokenDescriptor
+         {
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.Now.AddDays(1),
+            SigningCredentials = creds
+         };
+
+         var tokenHandler = new JwtSecurityTokenHandler();
+
+         var token = tokenHandler.CreateToken(tokenDescriptor);
+
+         return tokenHandler.WriteToken(token);
+      }
+   }
 }
