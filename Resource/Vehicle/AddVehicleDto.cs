@@ -21,7 +21,6 @@ namespace Al_Delal.Api.Resource.Vehicle
         public string Price { get; set; }
         public string Description { get; set; }
         //  public List<IFormFile> Photos { get; set; }
-       
         public string UserId { get; set; }
     }
 }
