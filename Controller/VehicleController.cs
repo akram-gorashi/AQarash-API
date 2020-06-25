@@ -15,148 +15,113 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using Al_Delal.Api.Repositories.Base;
 
 namespace Al_Delal.Api.Controller
 {
-    // [Authorize]
-    [ApiController]
-    [Route(ApiRoutes.Vehicles.Vehicle)]
-    public class VehicleController : ControllerBase
-    {
-        private readonly IVehicleRepository _repo;
-        private readonly IMapper _mapper;
+   // [Authorize]
+   [ApiController]
+   [Route(ApiRoutes.Vehicles.Vehicle)]
+   public class VehicleController : ControllerBase
+   {
+      private IRepositoryWrapper _repository;
 
-        public VehicleController(IVehicleRepository repo, IMapper mapper)
-        {
-            _mapper = mapper;
-            _repo = repo;
-        }
+      public VehicleController( IRepositoryWrapper repository)
+      {
 
-        [HttpPost]
+         _repository = repository;
+      }
 
-        public async Task<IActionResult> AddVehicle([FromBody] Vehicle vehicle)
-        {
+      [HttpGet]
+      public IActionResult GetVehicles()
+      {
+         var vehicles = _repository.Vehicle.GetVehicles();
 
-            try
-            {
-                var vehicleId = await _repo.AddVehicle(vehicle);
-                if (vehicleId > 0)
-                {
-                    return Ok(vehicleId);
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception)
-            {
+         // _logger.LogInfo($"Returned all Vehicles from database.");
 
-                return BadRequest();
-            }
+         return Ok(vehicles);
+      }
 
+      [HttpGet("{id}", Name = "VehicleById")]
+      public IActionResult GetVehicleById(int id)
+      {
+         var vehicle = _repository.Vehicle.GetVehicleById(id);
 
-        }
-        [HttpGet]
-        public async Task<IActionResult> GetVehicles()
-        {
-            try
-            {
-                var vehicles = await _repo.GetVehicles();
-                if (vehicles == null)
-                {
-                    return NotFound();
-                }
-                var vehiclesToReturn = _mapper.Map<IEnumerable<VehicleForListDto>>(vehicles);
+         if (vehicle == null)
+         {
+            // _logger.LogError($"vehicle with id: {id}, hasn't been found in db.");
+            return NotFound();
+         }
+         else
+         {
+            // _logger.LogInfo($"Returned vehicle with id: {id}");
+            return Ok(vehicle);
+         }
+      }
 
-                return Ok(vehicles);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
+      [HttpPost]
+      public IActionResult CreateVehicle([FromBody] Vehicle vehicle)
+      {
+         if (vehicle != null)
+         {
+            // _logger.LogError("Vehicle object sent from client is null.");
+            return BadRequest("Vehicle object is null");
+         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetVehicle(int id)
-        {
-            try
-            {
-                var vehicle = await _repo.GetVehicle(id);
-                if (vehicle == null)
-                {
-                    return NotFound();
-                }
-                var vehicleToReturn = _mapper.Map<VehicleForDetailsDto>(vehicle);
+         if (!ModelState.IsValid)
+         {
+            // _logger.LogError("Invalid Vehicle object sent from client.");
+            return BadRequest("Invalid model object");
+         }
 
-                return Ok(vehicleToReturn);
-            }
+         _repository.Vehicle.CreateVehicle(vehicle);
+         _repository.Save();
 
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-        [HttpDelete("{vehicleId}")]
-        public async Task<IActionResult> DeleteVehicle(int? vehicleId)
-        {
-            int result = 0;
+         return CreatedAtRoute("VehicleById", new { id = vehicle.Id }, vehicle);
+      }
 
-            if (vehicleId == null)
-            {
-                return BadRequest();
-            }
+      [HttpPut("{id}")]
+      public IActionResult UpdateVehicle(int id, [FromBody] Vehicle vehicle)
+      {
+         if (vehicle != null)
+         {
+            // _logger.LogError("Vehicle object sent from client is null.");
+            return BadRequest("Vehicle object is null");
+         }
 
-            try
-            {
-                result = await _repo.DeleteVehicle(vehicleId);
-                if (result == 0)
-                {
-                    return NotFound();
-                }
-                return Ok();
-            }
-            catch (Exception)
-            {
+         if (!ModelState.IsValid)
+         {
+            // _logger.LogError("Invalid Vehicle object sent from client.");
+            return BadRequest("Invalid model object");
+         }
 
-                return BadRequest();
-            }
-        }
+         var dbVehicle = _repository.Vehicle.GetVehicleById(id);
+         if (dbVehicle == null)
+         {
+            // _logger.LogError($"Vehicle with id: {id}, hasn't been found in db.");
+            return NotFound();
+         }
 
+         _repository.Vehicle.UpdateVehicle(dbVehicle, vehicle);
+         _repository.Save();
 
-        [HttpPut]
-       
-        public async Task<IActionResult> UpdateVehicle([FromBody] Vehicle vehicle)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _repo.UpdateVehicle(vehicle);
+         return NoContent();
+      }
 
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    if (ex.GetType().FullName == "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException")
-                    {
-                        return NotFound();
-                    }
+      [HttpDelete("{id}")]
+      public IActionResult DeleteVehicle(int id)
+      {
+         var vehicle = _repository.Vehicle.GetVehicleById(id);
+         if (vehicle == null)
+         {
+            // _logger.LogError($"Vehicle with id: {id}, hasn't been found in db.");
+            return NotFound();
+         }
 
-                    return BadRequest();
-                }
-            }
+         _repository.Vehicle.DeleteVehicle(vehicle);
+         _repository.Save();
 
-            return BadRequest();
-        }
-
-    }
-
-
+         return NoContent();
+      }
+   }
 }
-
-
-
-
-
-

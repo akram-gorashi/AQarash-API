@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
 using Al_Delal.Api.Models;
+using Al_Delal.Api.Repositories.Base;
 
 namespace Al_Delala.Api
 {
@@ -72,7 +73,7 @@ namespace Al_Delala.Api
          services.AddMvc();
          services.AddScoped<IUsersRepository, UsersRepository>();
          services.AddScoped<IVehicleRepository, VehicleRepository>();
-
+         services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
          services.AddControllers().AddNewtonsoftJson(options =>
              options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
          );

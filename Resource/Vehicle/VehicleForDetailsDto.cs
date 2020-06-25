@@ -18,6 +18,7 @@ namespace Al_Delal.Api.Resource.Vehicle
         public string Fuel { get; set; }
         public string Transmission { get; set; }
         public string Price { get; set; }
+        public string PhoneNumber { get; set; }
         public string Description { get; set; }
         // sending back image url only
         // public ICollection<Photo> Photos { get; set; }
