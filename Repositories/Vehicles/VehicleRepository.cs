@@ -52,11 +52,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
          return result;
       }
 
-      public IQueryable<Vehicle> FindAll()
-      {
-         return _context.Set<Vehicle>()
-               .AsNoTracking();
-      }
+     
 
       public async Task<Vehicle> GetVehicle(int? vehicleId)
       {
@@ -73,12 +69,11 @@ namespace Al_Delal.Api.Repositories.Vehicles
       {
          if (_context != null)
          {
-           	return PagedList<Vehicle>.ToPagedList(FindAll().OrderBy(v => v.Year),
+            var vehicle = _context.Set<Vehicle>().AsNoTracking();
+           	return PagedList<Vehicle>.ToPagedList(vehicle.OrderByDescending(v => v.DateAdded),
 	      	vehicleParameters.PageNumber,
 		      vehicleParameters.PageSize);
-            /*  var vehicles = await _context.Vehicles.ToListAsync();
-
-             return vehicles; */
+   
          }
 
          return null;

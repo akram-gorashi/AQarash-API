@@ -8,7 +8,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
 {
    public interface IVehicleRepository
    {
-      IQueryable<Vehicle> FindAll();
+    
       PagedList<Vehicle> GetVehicles(VehicleParameters vehicleParameters);
 
       Task<Vehicle> GetVehicle(int? vehicleId);
