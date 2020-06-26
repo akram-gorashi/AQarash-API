@@ -14,5 +14,6 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0"/>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
     <PackageReference Include="ObjectDumper" Version="1.0.0.12"/>
+    <PackageReference Include="LinqKit" Version="1.1.17"/>
   </ItemGroup>
 </Project>

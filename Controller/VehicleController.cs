@@ -58,12 +58,12 @@ namespace Al_Delal.Api.Controller
 
       }
       [HttpGet]
-      public async Task<IActionResult> GetVehicles([FromQuery] FilterQuery filterQuery)
+      public IActionResult GetVehicles([FromQuery] FilterQuery filterQuery)
       {
          try
          {
             var vehicles = _repo.GetVehicles(filterQuery);
-             var metadata = new
+            var metadata = new
             {
                vehicles.TotalCount,
                vehicles.PageSize,
@@ -71,13 +71,13 @@ namespace Al_Delal.Api.Controller
                vehicles.TotalPages,
                vehicles.HasNext,
                vehicles.HasPrevious
-            }; 
+            };
             if (vehicles == null)
             {
                return NotFound();
             }
             var vehiclesToReturn = _mapper.Map<IEnumerable<VehicleForListDto>>(vehicles);
-             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(vehicles);
          }
