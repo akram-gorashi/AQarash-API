@@ -1,11 +1,11 @@
 namespace Al_Delal.Api.Models
 {
-   public class VehicleParameters
+   public class PageQuery
 	{
 		const int maxPageSize = 50;
 		public int PageNumber { get; set; } = 1;
 
-		private int _pageSize = 10;
+		private int _pageSize = 16;
 		public int PageSize
 		{
 			get

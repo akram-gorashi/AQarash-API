@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Al_Delal.Api.Contract;
 using Al_Delal.Api.Data;
@@ -52,7 +54,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
          return result;
       }
 
-     
+
 
       public async Task<Vehicle> GetVehicle(int? vehicleId)
       {
@@ -65,15 +67,19 @@ namespace Al_Delal.Api.Repositories.Vehicles
          return null;
       }
 
-      public PagedList<Vehicle> GetVehicles(VehicleParameters vehicleParameters)
+      public PagedList<Vehicle> GetVehicles(FilterQuery filterQuery)
       {
          if (_context != null)
          {
-            var vehicle = _context.Set<Vehicle>().AsNoTracking();
-           	return PagedList<Vehicle>.ToPagedList(vehicle.OrderByDescending(v => v.DateAdded),
-	      	vehicleParameters.PageNumber,
-		      vehicleParameters.PageSize);
-   
+            /*  var vehicle = _context.Set<Vehicle>().AsNoTracking(); */
+            var vehicle = FindByCondition(v => (v.Year >= filterQuery.MinYear) &&
+            (v.Year <= filterQuery.MaxYear) /* && (v.Model == filterQuery.Model) &&
+            (v.Make == filterQuery.Make) && (v.Transmission == filterQuery.Transmission) */);
+
+            return PagedList<Vehicle>.ToPagedList(vehicle.OrderByDescending(v => v.DateAdded),
+          filterQuery.PageNumber,
+          filterQuery.PageSize);
+
          }
 
          return null;
@@ -90,5 +96,13 @@ namespace Al_Delal.Api.Repositories.Vehicles
             await _context.SaveChangesAsync();
          }
       }
+
+      public IQueryable<Vehicle> FindByCondition(Expression<Func<Vehicle, bool>> expression)
+      {
+         return _context.Set<Vehicle>()
+             .Where(expression)
+             .AsNoTracking();
+      }
+
    }
 }

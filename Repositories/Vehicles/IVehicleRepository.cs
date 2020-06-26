@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Al_Delal.Api.Contract;
 using Al_Delal.Api.Models;
@@ -8,8 +10,8 @@ namespace Al_Delal.Api.Repositories.Vehicles
 {
    public interface IVehicleRepository
    {
-    
-      PagedList<Vehicle> GetVehicles(VehicleParameters vehicleParameters);
+
+      PagedList<Vehicle> GetVehicles(FilterQuery filterQuery);
 
       Task<Vehicle> GetVehicle(int? vehicleId);
 
@@ -18,5 +20,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
       Task<int> DeleteVehicle(int? vehicleId);
 
       Task UpdateVehicle(Vehicle vehicle);
+      IQueryable<Vehicle> FindByCondition(Expression<Func<Vehicle, bool>> expression);
+
    }
 }

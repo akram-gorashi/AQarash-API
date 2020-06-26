@@ -58,11 +58,11 @@ namespace Al_Delal.Api.Controller
 
       }
       [HttpGet]
-      public async Task<IActionResult> GetVehicles([FromQuery] VehicleParameters parameters)
+      public async Task<IActionResult> GetVehicles([FromQuery] FilterQuery filterQuery)
       {
          try
          {
-            var vehicles = _repo.GetVehicles(parameters);
+            var vehicles = _repo.GetVehicles(filterQuery);
              var metadata = new
             {
                vehicles.TotalCount,
