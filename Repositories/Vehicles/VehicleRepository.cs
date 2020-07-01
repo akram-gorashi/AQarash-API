@@ -70,9 +70,18 @@ namespace Al_Delal.Api.Repositories.Vehicles
          return null;
       }
 
-      public PagedList<Vehicle> GetVehicles(FilterQuery filterQuery)
+       public PagedList<Vehicle> GetVehicles(FilterQuery filterQuery)
       {
+         // remov it
+         var vehicle = _context.Set<Vehicle>().AsNoTracking();
+         var result = PagedList<Vehicle>.ToPagedList(vehicle.OrderByDescending(v => v.DateAdded),
+                filterQuery.PageNumber,
+                filterQuery.PageSize);
 
+         return result;
+        
+         
+/*          
          // var vehicle = _context.Set<Vehicle>().AsNoTracking();
          var vehicle = _context.Vehicles.AsQueryable().AsNoTracking();
          // Create a PredicateBuilder for contrcuting dynamic query
@@ -146,14 +155,8 @@ namespace Al_Delal.Api.Repositories.Vehicles
                 filterQuery.PageSize);
 
          return result;
-         /*  var vehicle = _context.Set<Vehicle>().AsNoTracking(); */
-         /* var vehicle = FindByCondition(v => (v.Year >= filterQuery.MinYear) &&
-         (v.Year <= filterQuery.MaxYear) && (v.Model == filterQuery.Model) &&
-         (v.Make == filterQuery.Make) && (v.Transmission == filterQuery.Transmission) );*/
-         /*   return PagedList<Vehicle>.ToPagedList(vehicle.OrderByDescending(v => v.DateAdded),
-                  filterQuery.PageNumber,
-                  filterQuery.PageSize); */
-
+        
+ */
 
       }
 
