@@ -9,7 +9,6 @@ using AutoMapper;
 
 namespace Al_Delal.Api.Helper.Mapping
 {
-<<<<<<< HEAD
    public class DomainToResource : Profile
    {
       public DomainToResource()
@@ -43,15 +42,4 @@ namespace Al_Delal.Api.Helper.Mapping
          return imagesName;
       }
    }
-=======
-    public class DomainToResource: Profile
-    {
-        public DomainToResource()
-        {
-            CreateMap<User, UserForListDto>();
-            CreateMap<Vehicle, VehicleForListDto>();
-            CreateMap<Vehicle, VehicleForDetailsDto>();
-        }
-    }
->>>>>>> [update]
 }

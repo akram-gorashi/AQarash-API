@@ -12,15 +12,11 @@ using Al_Delal.Api.Repositories.Users;
 using AutoMapper;
 using Al_Delal.Api.Repositories.Vehicles;
 using Microsoft.Extensions.FileProviders;
-<<<<<<< HEAD
+
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
 using Al_Delal.Api.Models;
-=======
-using System.IO;
-using Microsoft.AspNetCore.Http;
->>>>>>> [update]
 
 namespace Al_Delala.Api
 {
@@ -33,7 +29,7 @@ namespace Al_Delala.Api
 
       public IConfiguration Configuration { get; }
 
-<<<<<<< HEAD
+
       // This method gets called by the runtime. Use this method to add services to the container.
       public void ConfigureServices(IServiceCollection services)
       {
@@ -44,37 +40,6 @@ namespace Al_Delala.Api
             opt.Password.RequireNonAlphanumeric = false;
             opt.Password.RequireUppercase = false;
          });
-=======
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-
-            services.AddTransient<Seed>();
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
-            services.AddCors();
-            services.AddAutoMapper(typeof(Startup));
-            services.AddMvc();
-            services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
-            services.AddScoped<IVehicleRepository, VehicleRepository>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-              .AddJwtBearer(options =>
-              {
-                  options.TokenValidationParameters = new TokenValidationParameters
-                  {
-                      ValidateIssuerSigningKey = true,
-                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                          .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                      ValidateIssuer = false,
-                      ValidateAudience = false
-                  };
-              });
-            services.AddControllers().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
-        }
->>>>>>> [update]
 
          builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
          builder.AddEntityFrameworkStores<DataContext>();
@@ -82,7 +47,6 @@ namespace Al_Delala.Api
          builder.AddRoleManager<RoleManager<Role>>();
          builder.AddSignInManager<SignInManager<User>>();
 
-<<<<<<< HEAD
          services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>
              {
@@ -140,25 +104,5 @@ namespace Al_Delala.Api
          });
       }
    }
-=======
-            // app.UseHttpsRedirection();
-            //seeder.SeedUsers();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            app.UseRouting();
 
-            app.UseAuthorization();
-            app.UseAuthentication();
-            app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-                RequestPath = new PathString("/Resources")
-            });
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
-    }
->>>>>>> [update]
 }
