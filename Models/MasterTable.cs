@@ -7,13 +7,13 @@ namespace Al_Delal.Api.Models
       public int Id { get; set; }
 
       /* Toyota */
-      public IList<Make> Make { get; set; }
-      public IList<Color> Color { get; set; }
-      public IList<Condition> Condition { get; set; }
+      public ICollection<Make> Make { get; set; }
+      public ICollection<Color> Color { get; set; }
+      public ICollection<Condition> Condition { get; set; }
       // Corolla 
-      public IList<Model> Modal { get; set; }
-      public IList<Fuel> Fuel { get; set; }
-      public IList<Transmission> Transmission { get; set; }
+      public ICollection<Model> Modal { get; set; }
+      public ICollection<Fuel> Fuel { get; set; }
+      public ICollection<Transmission> Transmission { get; set; }
 
    }
 
