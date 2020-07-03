@@ -34,7 +34,7 @@ namespace Al_Delal.Api.Controller
 
       [HttpPost]
 
-      public async Task<IActionResult> AddVehicle([FromBody] Vehicle vehicle)
+      public async Task<IActionResult> AddVehicle([FromForm] Vehicle vehicle)
       {
 
          try
@@ -42,6 +42,7 @@ namespace Al_Delal.Api.Controller
             var vehicleId = await _repo.AddVehicle(vehicle);
             if (vehicleId > 0)
             {
+               UploadImages(vehicle.Images, vehicleId);
                return Ok(vehicleId);
             }
             else
@@ -56,6 +57,43 @@ namespace Al_Delal.Api.Controller
          }
 
 
+      }
+
+      public IActionResult  UploadImages(IEnumerable<IFormFile> Images, int vehicleId)
+      {
+         try
+         {
+            var files = Images;
+            var folderName = Path.Combine("C:/Users/Akram/Desktop/alQarash/", "Images/", vehicleId.ToString());
+            if (!Directory.Exists(folderName))
+            {
+               Directory.CreateDirectory(folderName);
+            }
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+            if (files.Any(f => f.Length == 0))
+            {
+               return BadRequest();
+            }
+
+            foreach (var file in files)
+            {
+               var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+               var fullPath = Path.Combine(pathToSave, fileName);
+               var dbPath = Path.Combine(folderName, fileName); //you can add this path to a list and then return all dbPaths to the client if require
+
+               using (var stream = new FileStream(fullPath, FileMode.Create))
+               {
+                  file.CopyTo(stream);
+               }
+            }
+
+            return Ok("All the files are successfully uploaded.");
+         }
+         catch (Exception ex)
+         {
+            return StatusCode(500, "Internal server error");
+         }
       }
       [HttpGet]
       public IActionResult GetVehicles([FromQuery] FilterQuery filterQuery)

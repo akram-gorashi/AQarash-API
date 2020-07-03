@@ -25,6 +25,5 @@ namespace Al_Delal.Api.Resource.Vehicle
         // sending back image url only
         // public ICollection<Photo> Photos { get; set; }
         // public User User { get; set; }
-        public int UserId { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Al_Delal.Api.Contract;
 using Al_Delal.Api.Models;
+using Al_Delal.Api.Resource.Vehicle;
 
 namespace Al_Delal.Api.Repositories.Vehicles
 {

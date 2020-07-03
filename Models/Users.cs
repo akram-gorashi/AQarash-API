@@ -13,8 +13,6 @@ namespace Al_Delal.Api.Models
       public virtual ICollection<UserRole> UserRoles { get; set; }
 
       /* there is no relation between user and vehicle just send userid with vehcile post request to register the 
-      vehcile with the  user id */
-      // public Vehicle Vehicle { get; set; }
-
+      vehcile with the  user id */    
    }
 }

@@ -14,7 +14,6 @@ namespace Al_Delal.Api.Helper.Mapping
             CreateMap<UserForRegisterDto, User>();
             CreateMap<VehicleForListDto , Vehicle>();
             CreateMap<VehicleForDetailsDto, Vehicle>();
-            CreateMap<AddVehicleDto, Vehicle>();
         }
     }
 }

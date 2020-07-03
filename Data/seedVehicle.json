@@ -137,25 +137,46 @@
         ]
     },
     {
-        "userId": 6,
-        "DateAdded": "2015-09-18T11:08:12 -03:00",
-        "Make": "URBANSHEE",
-        "TypeOfCar": "click",
-        "Mileage": 23333,
-        "Color": "blue",
-        "Condition": "Duis enim deserunt et cillum velit laboris est esse dolor incididunt esse fugiat pariatur. Cupidatat esse minim et qui proident sunt mollit mollit labore enim ea. Labore aliqua anim deserunt consectetur eu ut quis duis ut aliquip et voluptate. Nisi et do culpa anim dolore aliquip sit tempor Lorem tempor quis incididunt veniam. Proident aliquip laboris laboris Lorem id commodo consectetur. Mollit cupidatat culpa pariatur incididunt amet sint officia ea.\r\n",
-        "Model": "QIMONK",
-        "Year": 2002,
-        "Fuel": "gas",
-        "Transmission": "manual",
-        "price": "$2,175.48",
-        "Description": "Labore nostrud fugiat ut do veniam esse. Reprehenderit deserunt tempor eiusmod quis nulla nulla tempor sit. Magna nulla cillum dolor laboris commodo. Excepteur laborum Lorem non deserunt. Nulla Lorem est do cupidatat id sunt voluptate nisi voluptate velit consequat.\r\n",
-        "Photos": [
-            {
-                "url": "http://placehold.it/32x32",
-                "DateAdded": "2016-02-26T02:44:05 -03:00",
-                "IsMain": false
-            }
-        ]
+      
+         "userId": 2,
+         "Make":  {
+            "id": 1,
+            "name": "Toyota",
+            "nameAr": "تايوتا"
+        },
+         "Mileage": 23333,
+         "Color":  {
+            "id": 1,
+            "name": "White",
+            "nameAr": "أبيض"
+        },
+         "Condition": {
+            "id": 1,
+            "name": "Used",
+            "nameAr": "مستعمل"
+        },
+         "Model":  {
+            "id": 1,
+            "name": "Corolla",
+            "nameAr": "كوريلا"
+        },
+         "Year": 2022,
+         "Fuel":  {
+            "id": 1,
+            "name": "Gasoline",
+            "nameAr": "جاز"
+        },
+         "Transmission":  {
+            "id": 1,
+            "name": "Manual",
+            "nameAr": "يدوي"
+        },
+        "AgentName": "معرض البرنس",
+        "AgentPhoneNumber": "0925050905",
+        "AgentLocation": "بحري",
+         "price": "1,724.43",
+         "Description": "Cupidatat proident qui velit exercitation fugiat et. Enim id sint qui sit anim voluptate sunt est qui nostrud reprehenderit eiusmod. Qui quis minim velit deserunt amet adipisicing aliqua anim sunt nisi commodo magna.\r\n"
+      
+        
     }
 ]

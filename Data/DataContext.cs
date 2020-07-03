@@ -19,7 +19,7 @@ namespace Al_Delal.Api.Data
       {
          base.OnModelCreating(builder);
           builder.Entity<MasterTable>();
-
+         //  builder.Entity<Vehicle>().HasKey(v => v.Id);
          builder.Entity<UserRole>(userRole =>
          {
             userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
