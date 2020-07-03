@@ -21,6 +21,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
 
       Task UpdateVehicle(Vehicle vehicle);
       IQueryable<Vehicle> FindByCondition(Expression<Func<Vehicle, bool>> expression);
+      Task<IEnumerable<MasterTable>> GetMasterTable();
 
    }
 }

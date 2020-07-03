@@ -18,7 +18,7 @@ namespace Al_Delal.Api.Data
       protected override void OnModelCreating(ModelBuilder builder)
       {
          base.OnModelCreating(builder);
-         // builder.Entity<MasterTable>().HasNoKey();
+          builder.Entity<MasterTable>();
 
          builder.Entity<UserRole>(userRole =>
          {

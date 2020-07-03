@@ -35,5 +35,16 @@ namespace Al_Delal.Api.Contract
          public const string UsersWithRoles = "api/admin/usersWithRoles";
       }
       #endregion
+
+      #region MasterTable
+      public static class MasterTables
+      {
+         public const string MasterTable = "api/MasterTable";
+      }
+
+      #endregion
    }
+
+
+
 }
