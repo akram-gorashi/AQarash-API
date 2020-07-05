@@ -10,7 +10,6 @@ namespace Al_Delal.Api.Models
       public int Id { get; set; }
       public DateTime DateAdded { get; set; }
       public int MakeId { get; set; }
-      // public string TypeOfCar { get; set; }
       public int Mileage { get; set; }
       public int ColorId { get; set; }
       public int ConditionId { get; set; }
@@ -25,7 +24,6 @@ namespace Al_Delal.Api.Models
       public string AgentLocation { get; set; }
       [NotMapped]
       public IEnumerable<IFormFile> Images { get; set; }
-     /*  public virtual User User { get; set; }
- */      public int UserId { get; set; }
+      public int UserId { get; set; }
    }
 }

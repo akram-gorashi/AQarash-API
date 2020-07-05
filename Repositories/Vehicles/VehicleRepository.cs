@@ -74,7 +74,9 @@ namespace Al_Delal.Api.Repositories.Vehicles
       public PagedList<Vehicle> GetVehicles(FilterQuery filterQuery)
       {
          // var masterTable = GetMasterTable();
-         var vehicle = _context.Set<Vehicle>().AsNoTracking().OrderByDescending(v => v.DateAdded);
+          var vehicle = _context.Set<Vehicle>().AsNoTracking().OrderByDescending(v => v.DateAdded);
+         // var vehicle = _context.Set<Vehicle>().OrderByDescending(v => v.DateAdded)
+
 
          var result = PagedList<Vehicle>.ToPagedList(vehicle,
                 filterQuery.PageNumber,

@@ -8,7 +8,6 @@ namespace Al_Delal.Api.Resource.Vehicle
     {
         public int Id { get; set; }
          public Make Make { get; set; }
-      // public string TypeOfCar { get; set; }
       public int Mileage { get; set; }
       public Color Color { get; set; }
       public Condition Condition { get; set; }
