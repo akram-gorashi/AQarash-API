@@ -11,7 +11,7 @@ namespace Al_Delal.Api.Models
       public ICollection<Color> Color { get; set; }
       public ICollection<Condition> Condition { get; set; }
       // Corolla 
-      public ICollection<Model> Modal { get; set; }
+      public ICollection<Model> Model { get; set; }
       public ICollection<Fuel> Fuel { get; set; }
       public ICollection<Transmission> Transmission { get; set; }
 

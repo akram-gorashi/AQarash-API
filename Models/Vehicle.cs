@@ -13,7 +13,7 @@ namespace Al_Delal.Api.Models
       public int Mileage { get; set; }
       public int ColorId { get; set; }
       public int ConditionId { get; set; }
-      public int ModalId { get; set; }
+      public int ModelId { get; set; }
       public int Year { get; set; }
       public int FuelId { get; set; }
       public int TransmissionId { get; set; }

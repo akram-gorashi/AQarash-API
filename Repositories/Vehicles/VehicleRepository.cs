@@ -104,7 +104,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
              .Where(expression)
              .AsNoTracking();
       }
-
+ 
       public async Task<IEnumerable<MasterTable>> GetMasterTable()
       {
          var masterTable = await _context.MasterTables
@@ -113,7 +113,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
          .Include(t => t.Transmission)
          .Include(f => f.Fuel)
          .Include(m => m.Make)
-         .Include(m => m.Modal)
+         .Include(m => m.Model)
          .ToListAsync();
 
          return masterTable;
