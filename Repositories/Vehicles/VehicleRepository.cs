@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using LinqKit;
 using Al_Delal.Api.Helper;
 using Al_Delal.Api.Resource.Vehicle;
+using System.Net.Http.Headers;
+using System.Collections;
 
 namespace Al_Delal.Api.Repositories.Vehicles
 {
@@ -28,7 +30,6 @@ namespace Al_Delal.Api.Repositories.Vehicles
             vehicle.DateAdded = DateTime.Now;
             await _context.Vehicles.AddAsync(vehicle);
             await _context.SaveChangesAsync();
-
             return vehicle.Id;
          }
 
@@ -73,17 +74,80 @@ namespace Al_Delal.Api.Repositories.Vehicles
 
       public PagedList<Vehicle> GetVehicles(FilterQuery filterQuery)
       {
-         // var masterTable = GetMasterTable();
-          var vehicle = _context.Set<Vehicle>().AsNoTracking().OrderByDescending(v => v.DateAdded);
-         // var vehicle = _context.Set<Vehicle>().OrderByDescending(v => v.DateAdded)
+
+         // var vehicle = _context.Set<Vehicle>().AsNoTracking();
+         var vehicle = _context.Vehicles.AsQueryable().AsNoTracking();
+         // Create a PredicateBuilder for contrcuting dynamic query
+         var predicate = PredicateBuilder.New<Vehicle>();
+         // Url dcode the query string and get GetVehicles Model queries array
+         var modelQueries = new string[] { };
+         if (!string.IsNullOrEmpty(filterQuery.Model)) modelQueries = filterQuery.Model.Split(' ');
+
+         // Url dcode the query string and get  get GetVehicles Make queries array
+         var makeQueries = new string[] { };
+         if (!string.IsNullOrEmpty(filterQuery.Make)) makeQueries = filterQuery.Make.Split(' ');
+         // Url dcode the query string and get  get GetVehicles Make queries array
+         var transmissionQueries = new string[] { };
+         if (!string.IsNullOrEmpty(filterQuery.Transmission)) transmissionQueries = filterQuery.Transmission.Split(' ');
+
+         // add vehicle queries
+         if (modelQueries.Length > 0)
+         {
+            var modelPredicate = PredicateBuilder.New<Vehicle>();
+            foreach (string model in modelQueries)
+            {
+               // Remove hyphens from model
+               var originalModel = model.Replace("-", " ");
+               // Apply SQL OR to find Vehicles with all specified model
+               modelPredicate = modelPredicate.Or(v => v.Model == originalModel);
+
+            }
+            predicate = predicate.And(modelPredicate);
+
+         }
+
+         if (makeQueries.Length > 0)
+         {
+            var makePredicate = PredicateBuilder.New<Vehicle>();
+            foreach (string make in makeQueries)
+            {
+               // Remove hyphens from make
+               var originalMake = make.Replace("-", " ");
+               // Apply SQL OR to find Vehicles with all specified make
+               makePredicate = makePredicate.Or(v => v.Make == originalMake);
+
+            }
+            predicate = predicate.And(makePredicate);
+
+         }
+
+         if (transmissionQueries.Length > 0)
+         {
+            var transmissionPredicate = PredicateBuilder.New<Vehicle>();
+            foreach (string transmission in transmissionQueries)
+            {
+               // Remove hyphens from transmission
+               var originaltransmission = transmission.Replace("-", " ");
+               // Apply SQL OR to find Vehicles with all specified transmission
+               transmissionPredicate = transmissionPredicate.Or(v => v.Transmission == originaltransmission);
+
+            }
+            predicate = predicate.And(transmissionPredicate);
+
+         }
+
+         // Add the predicate  to the query
+         vehicle = vehicle.Where(predicate);
+
+         // Dont inlcude the predicate builder if no filter exists
+         if (AppUtill.IsObjectNullOrEmpty(filterQuery)) vehicle = _context.Vehicles.AsQueryable().AsNoTracking();
 
 
-         var result = PagedList<Vehicle>.ToPagedList(vehicle,
+         var result = PagedList<Vehicle>.ToPagedList(vehicle.OrderByDescending(v => v.DateAdded),
                 filterQuery.PageNumber,
                 filterQuery.PageSize);
 
          return result;
-
       }
 
       public async Task UpdateVehicle(Vehicle vehicle)
@@ -104,7 +168,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
              .Where(expression)
              .AsNoTracking();
       }
- 
+
       public async Task<IEnumerable<MasterTable>> GetMasterTable()
       {
          var masterTable = await _context.MasterTables
@@ -119,5 +183,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
          return masterTable;
       }
 
+
+    
    }
 }

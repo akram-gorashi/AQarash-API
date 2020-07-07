@@ -42,7 +42,11 @@ namespace Al_Delal.Api.Controller
             var vehicleId = await _repo.AddVehicle(vehicle);
             if (vehicleId > 0)
             {
-               UploadImages(vehicle.Images, vehicleId);
+               if (vehicle.Images != null)
+               {
+                  UploadImages(vehicle.Images, vehicleId);
+               }
+               
                return Ok(vehicleId);
             }
             else
@@ -53,14 +57,15 @@ namespace Al_Delal.Api.Controller
          catch (Exception)
          {
 
-            return BadRequest();
+            return BadRequest("Realy Bad request");
          }
 
 
       }
 
-      public IActionResult  UploadImages(IEnumerable<IFormFile> Images, int vehicleId)
+      public IActionResult UploadImages(IEnumerable<IFormFile> Images, int vehicleId)
       {
+
          try
          {
             var files = Images;
@@ -73,12 +78,13 @@ namespace Al_Delal.Api.Controller
 
             if (files.Any(f => f.Length == 0))
             {
-               return BadRequest();
+               return BadRequest("No Images");
             }
 
             foreach (var file in files)
             {
                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+               
                var fullPath = Path.Combine(pathToSave, fileName);
                var dbPath = Path.Combine(folderName, fileName); //you can add this path to a list and then return all dbPaths to the client if require
 
@@ -94,6 +100,8 @@ namespace Al_Delal.Api.Controller
          {
             return StatusCode(500, "Internal server error");
          }
+
+
       }
       [HttpGet]
       public IActionResult GetVehicles([FromQuery] FilterQuery filterQuery)
@@ -117,7 +125,7 @@ namespace Al_Delal.Api.Controller
             var vehiclesToReturn = _mapper.Map<IEnumerable<VehicleForListDto>>(vehicles);
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-            return Ok(vehicles);
+            return Ok(vehiclesToReturn);
          }
          catch (Exception)
          {

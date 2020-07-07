@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -23,6 +24,7 @@ namespace Al_Delal.Api.Repositories.Vehicles
       Task UpdateVehicle(Vehicle vehicle);
       IQueryable<Vehicle> FindByCondition(Expression<Func<Vehicle, bool>> expression);
       Task<IEnumerable<MasterTable>> GetMasterTable();
+
 
    }
 }
