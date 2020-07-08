@@ -30,14 +30,16 @@ namespace Al_Delal.Api.Helper.Mapping
       public IList<string> Resolve(Vehicle source, object destination, IList<string> destinationMember, ResolutionContext context)
       {
          List<string> imagesName = new List<string>();
-         var folderName = Path.Combine(@"C:/Users/Akram/Desktop/alQarash/Images/" + source.Id.ToString());
+         var folderName = Path.Combine("C:/Users/Akram/Desktop/alQarash/Images/" + source.Id.ToString());
 
          //  string[] fileNames = Directory.GetFiles("C:/Users/Akram/Desktop/alQarash/Images/", source.Id.ToString(), "*.jpg");
          string[] fileArray = Directory.GetFiles(folderName);
 
          foreach (var fileName in fileArray)
          {
-            imagesName.Add(fileName.Replace("\\", "/"));
+            var fileUpdatedName = fileName;
+            fileUpdatedName = fileUpdatedName.Replace("C:/Users/Akram/Desktop/alQarash/Images", "");
+            imagesName.Add(fileUpdatedName.Replace("\\", "/"));
          }
          return imagesName;
       }
