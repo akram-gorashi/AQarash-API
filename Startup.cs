@@ -21,6 +21,7 @@ namespace Al_Delala.Api
 {
    public class Startup
    {
+      readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
       public Startup(IConfiguration configuration)
       {
          Configuration = configuration;
@@ -76,6 +77,18 @@ namespace Al_Delala.Api
          services.AddControllers().AddNewtonsoftJson(options =>
              options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
          );
+
+         services.AddCors(options =>
+    {
+       options.AddPolicy(MyAllowSpecificOrigins,
+                         builder =>
+                         {
+                            builder.WithOrigins("http://localhost:4200")
+                                                 .AllowAnyHeader()
+                                                 .AllowAnyMethod()
+                                                 .WithExposedHeaders("X-Pagination");
+                         });
+    });
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,7 +103,8 @@ namespace Al_Delala.Api
          // app.UseHttpsRedirection();
          //seeder.SeedUsers();
          app.UseStaticFiles();
-         app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+         // app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders());
+         app.UseCors(MyAllowSpecificOrigins);
          app.UseRouting();
 
          app.UseAuthentication();
