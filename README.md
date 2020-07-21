@@ -1,4 +1,5 @@
 # AQarash-API
+IP: 46.101.138.154
 deploy instructions :
 https://www.blinkingcaret.com/2018/01/24/angular-and-asp-net-core/
 
