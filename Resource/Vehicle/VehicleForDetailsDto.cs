@@ -24,5 +24,6 @@ namespace Al_Delal.Api.Resource.Vehicle
       public string AgentLocation { get; set; }
       public IList<string> ImageUrl { get; set; }
       public int UserId { get; set; }
+      public IList<VehicleForListDto> relatedVehicles { get; set; }
    }
 }
