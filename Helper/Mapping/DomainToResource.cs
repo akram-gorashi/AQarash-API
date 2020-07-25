@@ -39,7 +39,7 @@ namespace Al_Delal.Api.Helper.Mapping
          foreach (var fileName in fileArray)
          {
             var fileUpdatedName = fileName;
-            fileUpdatedName = fileUpdatedName.Replace("C:/Users/Akram/Desktop/alQarash/Images", "");
+            fileUpdatedName = fileUpdatedName.Replace("C:/Users/Akram/Desktop/alQarash/Images", "http://127.0.0.1:8080");
             imagesName.Add(fileUpdatedName.Replace("\\", "/"));
          }
          return imagesName;
