@@ -32,14 +32,14 @@ namespace Al_Delal.Api.Helper.Mapping
       public IList<string> Resolve(Vehicle source, object destination, IList<string> destinationMember, ResolutionContext context)
       {
          List<string> imagesName = new List<string>();
-         var folderName = Path.Combine("C:/Users/Akram/Desktop/alQarash/Images/" + source.Id.ToString());
+         var folderName = Path.Combine("/AlQarash/Vehcile-Images/" + source.Id.ToString());
 
          string[] fileArray = Directory.GetFiles(folderName);
 
          foreach (var fileName in fileArray)
          {
             var fileUpdatedName = fileName;
-            fileUpdatedName = fileUpdatedName.Replace("C:/Users/Akram/Desktop/alQarash/Images", "http://127.0.0.1:8080");
+           // fileUpdatedName = fileUpdatedName.Replace("C:/Users/Akram/Desktop/alQarash/Images", "http://127.0.0.1:8080");
             imagesName.Add(fileUpdatedName.Replace("\\", "/"));
          }
          return imagesName;

@@ -67,7 +67,8 @@ namespace Al_Delala.Api
          });
          services.AddAutoMapper(typeof(Startup));
          services.AddTransient<Seed>();
-         services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        // services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<DataContext>(x => x.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
          services.AddControllers();
          services.AddCors();
          services.AddMvc();
