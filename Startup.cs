@@ -15,9 +15,9 @@ using Microsoft.AspNetCore.Identity;
 using Al_Delal.Api.Models;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
-// using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+ using Pomelo.EntityFrameworkCore.MySql;
 
-namespace Al_Delala.Api
+namespace Al_Qarash.Api
 {
    public class Startup
    {
