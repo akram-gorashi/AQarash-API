@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Identity;
 using Al_Delal.Api.Models;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+
 namespace Al_Delala.Api
 {
    public class Startup
@@ -70,7 +72,10 @@ namespace Al_Delala.Api
          });
          services.AddAutoMapper(typeof(Startup));
          services.AddTransient<Seed>();
-         services.AddDbContext<DataContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+         services.AddDbContext<DataContext>(options =>
+         options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+         //services.AddDbContext<DataContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
          services.AddControllers();
          services.AddCors();
          services.AddMvc();
@@ -83,14 +88,14 @@ namespace Al_Delala.Api
 
          services.AddCors(options =>
     {
-     /*   options.AddPolicy(MyAllowSpecificOrigins,
-                         builder =>
-                         {
-                            builder.WithOrigins("http://localhost:4200")
-                                                 .AllowAnyHeader()
-                                                 .AllowAnyMethod()
-                                                 .WithExposedHeaders("X-Pagination");
-                         }); */
+       /*   options.AddPolicy(MyAllowSpecificOrigins,
+                           builder =>
+                           {
+                              builder.WithOrigins("http://localhost:4200")
+                                                   .AllowAnyHeader()
+                                                   .AllowAnyMethod()
+                                                   .WithExposedHeaders("X-Pagination");
+                           }); */
     });
       }
 
@@ -115,7 +120,7 @@ namespace Al_Delala.Api
          app.UseHttpsRedirection();
          //seeder.SeedUsers();
          app.UseStaticFiles();
-          app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders());
+         app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders());
          //app.UseCors(MyAllowSpecificOrigins);
          app.UseRouting();
 
