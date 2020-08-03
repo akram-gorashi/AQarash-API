@@ -16,7 +16,8 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
 using Al_Delal.Api.Models;
-
+using Microsoft.AspNetCore.HttpOverrides;
+using System.Net;
 namespace Al_Delala.Api
 {
    public class Startup
@@ -45,7 +46,12 @@ namespace Al_Delala.Api
          builder.AddRoleValidator<RoleValidator<Role>>();
          builder.AddRoleManager<RoleManager<Role>>();
          builder.AddSignInManager<SignInManager<User>>();
+         // using System.Net;
 
+         services.Configure<ForwardedHeadersOptions>(options =>
+         {
+            options.KnownProxies.Add(IPAddress.Parse("10.0.0.100"));
+         });
          services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>
              {
@@ -67,8 +73,7 @@ namespace Al_Delala.Api
          });
          services.AddAutoMapper(typeof(Startup));
          services.AddTransient<Seed>();
-        // services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-        services.AddDbContext<DataContext>(x => x.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+         services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
          services.AddControllers();
          services.AddCors();
          services.AddMvc();
@@ -81,14 +86,14 @@ namespace Al_Delala.Api
 
          services.AddCors(options =>
     {
-       options.AddPolicy(MyAllowSpecificOrigins,
+     /*   options.AddPolicy(MyAllowSpecificOrigins,
                          builder =>
                          {
                             builder.WithOrigins("http://localhost:4200")
                                                  .AllowAnyHeader()
                                                  .AllowAnyMethod()
                                                  .WithExposedHeaders("X-Pagination");
-                         });
+                         }); */
     });
       }
 
@@ -100,12 +105,21 @@ namespace Al_Delala.Api
          {
             app.UseDeveloperExceptionPage();
          }
+         else
+         {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+         }
 
-         // app.UseHttpsRedirection();
+         app.UseForwardedHeaders(new ForwardedHeadersOptions
+         {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+         });
+         app.UseHttpsRedirection();
          //seeder.SeedUsers();
          app.UseStaticFiles();
-         // app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders());
-         app.UseCors(MyAllowSpecificOrigins);
+          app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders());
+         //app.UseCors(MyAllowSpecificOrigins);
          app.UseRouting();
 
          app.UseAuthentication();

@@ -96,7 +96,7 @@ namespace Al_Delal.Api.Controller
 
             return Ok("All the files are successfully uploaded.");
          }
-         catch (Exception ex)
+         catch (Exception)
          {
             return StatusCode(500, "Internal server error");
          }
