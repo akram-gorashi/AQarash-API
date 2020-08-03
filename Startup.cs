@@ -11,9 +11,6 @@ using System.Text;
 using Al_Delal.Api.Repositories.Users;
 using AutoMapper;
 using Al_Delal.Api.Repositories.Vehicles;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.AspNetCore.Http;
-using System.IO;
 using Microsoft.AspNetCore.Identity;
 using Al_Delal.Api.Models;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -73,7 +70,7 @@ namespace Al_Delala.Api
          });
          services.AddAutoMapper(typeof(Startup));
          services.AddTransient<Seed>();
-         services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+         services.AddDbContext<DataContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
          services.AddControllers();
          services.AddCors();
          services.AddMvc();
