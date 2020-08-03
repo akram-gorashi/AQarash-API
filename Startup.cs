@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Al_Delal.Api.Models;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+// using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Al_Delala.Api
 {
@@ -72,8 +72,7 @@ namespace Al_Delala.Api
          });
          services.AddAutoMapper(typeof(Startup));
          services.AddTransient<Seed>();
-         services.AddDbContext<DataContext>(options =>
-         options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+         services.AddDbContext<DataContext>(x => x.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
          //services.AddDbContext<DataContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
          services.AddControllers();
