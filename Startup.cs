@@ -87,14 +87,14 @@ namespace Al_Delala.Api
 
          services.AddCors(options =>
     {
-       options.AddPolicy(MyAllowSpecificOrigins,
+      /*  options.AddPolicy(MyAllowSpecificOrigins,
                          builder =>
                          {
                             builder.WithOrigins("http://localhost:4200")
                                                  .AllowAnyHeader()
                                                  .AllowAnyMethod()
                                                  .WithExposedHeaders("X-Pagination");
-                         });
+                         }); */
     });
       }
 
@@ -119,8 +119,8 @@ namespace Al_Delala.Api
          app.UseHttpsRedirection();
          //seeder.SeedUsers();
          app.UseStaticFiles();
-         //  app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders());
-         app.UseCors(MyAllowSpecificOrigins);
+         app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders());
+         //  app.UseCors(MyAllowSpecificOrigins);
          app.UseRouting();
 
          app.UseAuthentication();
