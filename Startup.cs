@@ -119,7 +119,7 @@ namespace Al_Delala.Api
          app.UseHttpsRedirection();
          //seeder.SeedUsers();
          app.UseStaticFiles();
-         app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders());
+         app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders("X-Pagination"));
          //  app.UseCors(MyAllowSpecificOrigins);
          app.UseRouting();
 
