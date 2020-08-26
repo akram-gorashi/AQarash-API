@@ -32,7 +32,7 @@ namespace Al_Delal.Api.Helper.Mapping
       public IList<string> Resolve(Vehicle source, object destination, IList<string> destinationMember, ResolutionContext context)
       {
          List<string> imagesName = new List<string>();
-         var folderName = Path.Combine("/home/akram/AlQarash/Vehicles-Images/" + source.Id.ToString());
+         var folderName =  Path.Combine("/var/www/vehicles-images/", source.Id.ToString());
 
          string[] fileArray = Directory.GetFiles(folderName);
 

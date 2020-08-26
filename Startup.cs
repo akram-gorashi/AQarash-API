@@ -85,17 +85,17 @@ namespace Al_Delala.Api
              options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
          );
 
-         services.AddCors(options =>
-    {
-      /*  options.AddPolicy(MyAllowSpecificOrigins,
-                         builder =>
-                         {
-                            builder.WithOrigins("http://localhost:4200")
-                                                 .AllowAnyHeader()
-                                                 .AllowAnyMethod()
-                                                 .WithExposedHeaders("X-Pagination");
-                         }); */
-    });
+         /*     services.AddCors(options =>
+        {
+            options.AddPolicy(MyAllowSpecificOrigins,
+                             builder =>
+                             {
+                                builder.WithOrigins("http://admin.alqraash.com")
+                                                     .AllowAnyHeader()
+                                                     .AllowAnyMethod()
+                                                     .WithExposedHeaders("X-Pagination");
+                             }); 
+        }); */
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,18 +111,18 @@ namespace Al_Delala.Api
             app.UseExceptionHandler("/Error");
             app.UseHsts();
          }
+         // app.UseCors(MyAllowSpecificOrigins);
 
-         app.UseForwardedHeaders(new ForwardedHeadersOptions
-         {
-            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-         });
-         app.UseHttpsRedirection();
-         //seeder.SeedUsers();
-         app.UseStaticFiles();
+         /*   app.UseForwardedHeaders(new ForwardedHeadersOptions
+           {
+              ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+           }); */
+        // app.UseHttpsRedirection();
          app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders("X-Pagination"));
-         //  app.UseCors(MyAllowSpecificOrigins);
+         app.UseStaticFiles();
          app.UseRouting();
 
+         //seeder.SeedUsers();
          app.UseAuthentication();
          app.UseAuthorization();
 

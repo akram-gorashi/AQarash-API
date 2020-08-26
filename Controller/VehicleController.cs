@@ -69,8 +69,12 @@ namespace Al_Delal.Api.Controller
          try
          {
             var files = Images;
-            var folderName = Path.Combine("/home/akram/AlQarash/Vehicles-Images/", vehicleId.ToString());
-            if (!Directory.Exists(folderName))
+            var folderName = Path.Combine("/var/www/vehicles-images/", vehicleId.ToString());
+            // var folderName = Path.Combine("/");
+            Console.WriteLine(folderName);
+            Console.WriteLine(folderName);
+
+              if (!Directory.Exists(folderName))
             {
                Directory.CreateDirectory(folderName);
             }
