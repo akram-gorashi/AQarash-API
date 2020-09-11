@@ -18,31 +18,23 @@ namespace Al_Delal.Api.Helper.Mapping
          CreateMap<User, UserForLoginDto>();
          CreateMap<User, UserForRegisterDto>();
          CreateMap<Vehicle, VehicleForListDto>()
-        .ForMember(destination => destination.ImageUrl, option => option.MapFrom<ImageUrlResolver>());
+        .ForMember(destination => destination.NoOfImage, option => option.MapFrom<ImageUrlResolver>());
          CreateMap<Vehicle, VehicleForDetailsDto>()
         .ForMember(destination => destination.relatedVehicles, option => option.MapFrom<RelatedVehicleResolver>())
-        .ForMember(destination => destination.ImageUrl, option => option.MapFrom<ImageUrlResolver>());
+        .ForMember(destination => destination.NoOfImage, option => option.MapFrom<ImageUrlResolver>());
 
       }
    }
 
-   public class ImageUrlResolver : IValueResolver<Vehicle, object, IList<string>>
+   public class ImageUrlResolver : IValueResolver<Vehicle, object, int>
    {
 
-      public IList<string> Resolve(Vehicle source, object destination, IList<string> destinationMember, ResolutionContext context)
+      public int Resolve(Vehicle source, object destination, int destinationMember, ResolutionContext context)
       {
-         List<string> imagesName = new List<string>();
-         var folderName = Path.Combine("C:/Users/Akram/Desktop/alQarash/Images/" + source.Id.ToString());
-
-         string[] fileArray = Directory.GetFiles(folderName);
-
-         foreach (var fileName in fileArray)
-         {
-            var fileUpdatedName = fileName;
-            fileUpdatedName = fileUpdatedName.Replace("C:/Users/Akram/Desktop/alQarash/Images", "http://127.0.0.1:8080");
-            imagesName.Add(fileUpdatedName.Replace("\\", "/"));
-         }
-         return imagesName;
+         var myDir = Path.Combine("C:/Users/Akram/Desktop/alQarash/Images/" + source.Id.ToString());
+         var fileCount = (from file in Directory.EnumerateFiles(myDir, "*", SearchOption.AllDirectories)
+                          select file).Count();
+         return fileCount;
       }
    }
 
@@ -52,12 +44,12 @@ namespace Al_Delal.Api.Helper.Mapping
       private readonly DataContext _context;
       private readonly IMapper _mapper;
 
-      public RelatedVehicleResolver(DataContext context,  IMapper mapper)
+      public RelatedVehicleResolver(DataContext context, IMapper mapper)
       {
          _context = context;
          _mapper = mapper;
       }
- 
+
       public IList<VehicleForListDto> Resolve(Vehicle source, object destination, IList<VehicleForListDto> destinationMember, ResolutionContext context)
       {
          List<Vehicle> vehicles = new List<Vehicle>();

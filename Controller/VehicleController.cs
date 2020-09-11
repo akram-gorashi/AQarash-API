@@ -46,7 +46,7 @@ namespace Al_Delal.Api.Controller
                {
                   UploadImages(vehicle.Images, vehicleId);
                }
-               
+
                return Ok(vehicleId);
             }
             else
@@ -84,7 +84,7 @@ namespace Al_Delal.Api.Controller
             foreach (var file in files)
             {
                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-               
+
                var fullPath = Path.Combine(pathToSave, fileName);
                var dbPath = Path.Combine(folderName, fileName); //you can add this path to a list and then return all dbPaths to the client if require
 
@@ -152,6 +152,27 @@ namespace Al_Delal.Api.Controller
          {
             return BadRequest();
          }
+      }
+
+      [HttpGet(ApiRoutes.Vehicles.VehicleImage, Name = "DownloadPreviewAttachment")]
+      public IActionResult DownloadPreviewAttachment([FromQuery] PreviewAttachmentDownloadRequest attachmentReq)
+      {
+         string mimeType;
+         var typeProvider = new FileExtensionContentTypeProvider();
+         // Setup content disposition to view files in browser
+         var disposition = new System.Net.Mime.ContentDisposition { FileName = attachmentReq.AttachmentFileName, Inline = true };
+         // Set content-disposition header contents
+         HttpContext.Response.Headers["Content-Disposition"] = disposition.ToString();
+         // Try to get file MIME content type or set it to octet-stream
+         if (!typeProvider.TryGetContentType(attachmentReq.AttachmentFileName, out mimeType)) mimeType = "application/octet-stream";
+         // Remove illegal characters from file name
+         var fileName = string.Concat(attachmentReq.AttachmentFileName.Split(Path.GetInvalidFileNameChars()));
+
+         // Get the file path using the GUID
+         var attachmentPath = Path.Combine(@"d:\AppData", @"Users", attachmentReq.UserId, @"Quotations", attachmentReq.ReferenceId, @"Attachments", fileName);
+         // Get the attachment file bytes
+         byte[] attachmentFile = System.IO.File.ReadAllBytes(attachmentPath);
+         return File(attachmentFile, mimeType);
       }
       [HttpDelete("{vehicleId}")]
       public async Task<IActionResult> DeleteVehicle(int? vehicleId)
