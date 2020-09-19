@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.StaticFiles;
+using AQarash_API.Resource.Vehicle;
 
 namespace Al_Delal.Api.Controller
 {
@@ -152,28 +154,37 @@ namespace Al_Delal.Api.Controller
          {
             return BadRequest();
          }
-      }
+      } 
+ 
+      //  [HttpPost(ApiRoutes.Vehicles.VehicleImage)]
+      [HttpGet(ApiRoutes.Vehicles.VehicleImage)]
 
-      [HttpGet(ApiRoutes.Vehicles.VehicleImage, Name = "DownloadPreviewAttachment")]
-      public IActionResult DownloadPreviewAttachment([FromQuery] PreviewAttachmentDownloadRequest attachmentReq)
+      public IActionResult DownloadVehicleImage([FromQuery] VehicleImageDto imageDto)
       {
          string mimeType;
          var typeProvider = new FileExtensionContentTypeProvider();
+
+         var vehicleImagePath = Path.Combine(@"C:\Users\Akram\Desktop\alQarash\Images\", imageDto.FolderPath);
+
+         DirectoryInfo dirInfo = new DirectoryInfo(vehicleImagePath);
+
+         var ImageName = dirInfo.GetFiles()[imageDto.FileIndex];
          // Setup content disposition to view files in browser
-         var disposition = new System.Net.Mime.ContentDisposition { FileName = attachmentReq.AttachmentFileName, Inline = true };
+         var disposition = new System.Net.Mime.ContentDisposition { FileName = ImageName.ToString(), Inline = true };
          // Set content-disposition header contents
          HttpContext.Response.Headers["Content-Disposition"] = disposition.ToString();
          // Try to get file MIME content type or set it to octet-stream
-         if (!typeProvider.TryGetContentType(attachmentReq.AttachmentFileName, out mimeType)) mimeType = "application/octet-stream";
+         if (!typeProvider.TryGetContentType(ImageName.ToString(), out mimeType)) mimeType = "application/octet-stream";
          // Remove illegal characters from file name
-         var fileName = string.Concat(attachmentReq.AttachmentFileName.Split(Path.GetInvalidFileNameChars()));
+         var fileName = string.Concat(ImageName.Name.Split(Path.GetInvalidFileNameChars()));
 
          // Get the file path using the GUID
-         var attachmentPath = Path.Combine(@"d:\AppData", @"Users", attachmentReq.UserId, @"Quotations", attachmentReq.ReferenceId, @"Attachments", fileName);
+         var attachmentPath = Path.Combine(ImageName.FullName);
          // Get the attachment file bytes
          byte[] attachmentFile = System.IO.File.ReadAllBytes(attachmentPath);
          return File(attachmentFile, mimeType);
       }
+      
       [HttpDelete("{vehicleId}")]
       public async Task<IActionResult> DeleteVehicle(int? vehicleId)
       {

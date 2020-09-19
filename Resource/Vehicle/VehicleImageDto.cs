@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace AQarash_API.Resource.Vehicle
 {
    public class VehicleImageDto
