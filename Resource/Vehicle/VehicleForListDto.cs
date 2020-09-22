@@ -12,7 +12,7 @@ namespace Al_Delal.Api.Resource.Vehicle
 
       public string Model { get; set; }
       public string Make { get; set; }
-      public IList<string> ImageUrl { get; set; }
+      public int NoOfImage { get; set; }
       public string AgentLocation { get; set; }
 
       public int Mileage { get; set; }

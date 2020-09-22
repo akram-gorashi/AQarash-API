@@ -24,6 +24,7 @@ namespace Al_Delal.Api.Contract
       public static class Vehicles
       {
          public const string Vehicle = "api/vehicle";
+         public const string VehicleImage = "image";
       }
 
       #endregion

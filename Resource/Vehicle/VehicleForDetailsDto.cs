@@ -22,7 +22,7 @@ namespace Al_Delal.Api.Resource.Vehicle
       public string AgentName { get; set; }
       public string AgentPhoneNumber { get; set; }
       public string AgentLocation { get; set; }
-      public IList<string> ImageUrl { get; set; }
+      public int NoOfImage { get; set; }
       public int UserId { get; set; }
       public IList<VehicleForListDto> relatedVehicles { get; set; }
    }

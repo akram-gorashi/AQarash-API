@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using AQarash_API.Resource.Vehicle;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Al_Delal.Api.Controller
 {
@@ -107,6 +109,35 @@ namespace Al_Delal.Api.Controller
 
 
       }
+
+       [HttpGet(ApiRoutes.Vehicles.VehicleImage)]
+
+      public IActionResult DownloadVehicleImage([FromQuery] VehicleImageDto imageDto)
+      {
+         string mimeType;
+         var typeProvider = new FileExtensionContentTypeProvider();
+
+         var vehicleImagePath = Path.Combine("/var/www/vehicles-images/", imageDto.FolderPath);
+
+         DirectoryInfo dirInfo = new DirectoryInfo(vehicleImagePath);
+
+         var ImageName = dirInfo.GetFiles()[imageDto.FileIndex];
+         // Setup content disposition to view files in browser
+         var disposition = new System.Net.Mime.ContentDisposition { FileName = ImageName.ToString(), Inline = true };
+         // Set content-disposition header contents
+         HttpContext.Response.Headers["Content-Disposition"] = disposition.ToString();
+         // Try to get file MIME content type or set it to octet-stream
+         if (!typeProvider.TryGetContentType(ImageName.ToString(), out mimeType)) mimeType = "application/octet-stream";
+         // Remove illegal characters from file name
+         var fileName = string.Concat(ImageName.Name.Split(Path.GetInvalidFileNameChars()));
+
+         // Get the file path using the GUID
+         var attachmentPath = Path.Combine(ImageName.FullName);
+         // Get the attachment file bytes
+         byte[] attachmentFile = System.IO.File.ReadAllBytes(attachmentPath);
+         return File(attachmentFile, mimeType);
+      }
+      
       [HttpGet]
       public IActionResult GetVehicles([FromQuery] FilterQuery filterQuery)
       {
